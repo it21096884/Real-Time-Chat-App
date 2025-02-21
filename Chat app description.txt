@@ -1,0 +1,17 @@
+Two modules are there
+
+Users 
+ email
+ fullname
+ password
+ profilepic
+
+
+
+
+Messages 
+ senderID
+ receiverID
+ text
+ image
+ 
