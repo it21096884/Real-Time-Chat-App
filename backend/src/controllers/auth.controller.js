@@ -5,9 +5,9 @@ import cloudinary from '../lib/cloudinary.js';
 
 //signup controller
 export  const  signup = async (req,res)=>{
-    const {Firstname,email,password}=req.body;
+    const {fullName,email,password}=req.body;
     try {
-        if(!Firstname || !email || !password){
+        if(!fullName || !email || !password){
             return res.status(400).json({message:'All fields are required'});
         }
         if(password.length<6){
@@ -22,7 +22,7 @@ export  const  signup = async (req,res)=>{
         const hashedpassword = await bcrypt.hash(password,salt);
 
         const newUser = new User({
-            Firstname,
+            fullName,
             email, 
             password:hashedpassword
         })
@@ -32,7 +32,7 @@ export  const  signup = async (req,res)=>{
         newUser.save();
         res.status(201).json({
             _id:newUser._id,
-            Firstname:newUser.Firstname,
+            fullName:newUser.fullName,
             email:newUser.email,
             profilePic:newUser.profilePic,
         })
@@ -118,7 +118,7 @@ export const checkAuth = async (req,res)=>{
     try {
         res.status(200).json(req.user);
     } catch (error) {
-        console.log("Error in check auth controller",error);
+        console.log("Error in check auth controller",error.message);
         res.status(500).json({message:'Internal server error'});
     }
 
